@@ -5,8 +5,8 @@ import Form from './components/Form'
 
 class App extends Component {
   state = {
-    series:undefined,
-    error:"",
+    series: '',
+    error: '',
 
   }
 
@@ -15,8 +15,11 @@ class App extends Component {
     const searchValue = e.target.elements.searchValue.value;
     const api_call = await fetch(`http://api.tvmaze.com/search/shows?q=${searchValue}`);
     const data = await api_call.json();
-    if( searchValue ){
-      this.setState({ series: data});
+    console.log(data)
+    if (searchValue) {
+      this.setState({ series: data });
+      console.log(this.state.series)
+
     }
     else {
       this.setState({
@@ -24,25 +27,23 @@ class App extends Component {
         error: "cannot find series"
       });
     }
-  
+
   }
   render() {
-    const {series} = this.state
     return (
-      
+
       <div className="App">
         <header className="App-header">
-         <h1>Search Tv Series</h1>
+          <h1>Search Tv Series</h1>
         </header>
-        <p>Here you can find your most beloved series</p>
-        <Form findSeries = {this.findSeries}/>
-        <Series 
-          series = {this.state.series}
-          error={this.state.error}/>
+        <p>Enter a word to search for a Tv series</p>
+        <Form findSeries={this.findSeries} />
+        <Series
+          series={this.state.series}
+          error={this.state.error} />
       </div>
     );
   }
 }
 
 export default App;
-
